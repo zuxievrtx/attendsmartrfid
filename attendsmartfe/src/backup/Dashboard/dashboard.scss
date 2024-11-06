@@ -1,0 +1,29 @@
+@import "../../assets/scss/theme.scss";
+@import "../../assets/scss/bootstrap.scss";
+// .apexcharts-canvas {
+//   text {
+//     fill: $text-muted !important;
+//   }
+// }
+
+.col-1-5 {
+    display: flex;
+    justify-content: space-between;
+    flex: calc(20% - 15px) !important;
+    padding: 0 !important;
+    background-color: #fff;
+    border-radius: 1.2rem;
+    margin-left: 15px;
+    margin-bottom: 15px !important;
+    box-sizing: border-box;
+}
+.col-1-5 .card {
+    margin-bottom: 0 !important;
+    width: 100%;
+}
+
+@media screen and (max-width:380) {
+    .col-1-5 {
+        flex: 100% !important;
+    }
+}
