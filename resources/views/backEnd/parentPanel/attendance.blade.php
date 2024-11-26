@@ -80,8 +80,8 @@
             <div class="row justify-content-between">
                 <h1>@lang('student.attendance')</h1>
                 <div class="bc-pages">
-                    <a href="{{route('dashboard')}}">@lang('common.dashboard')</a>
-                    <a href="{{route('student_my_attendance')}}">@lang('student.attendance')</a>
+                    <a href="{{ route('dashboard') }}">@lang('common.dashboard')</a>
+                    <a href="{{ route('student_my_attendance') }}">@lang('student.attendance')</a>
                 </div>
             </div>
         </div>
@@ -92,7 +92,8 @@
                 <div class="col-lg-12">
                     <div class="student-meta-box">
                         <div class="student-meta-top"></div>
-                        <img class="student-meta-img img-100" src="{{asset($student_detail->student_photo)}}" alt="">
+                        <img class="student-meta-img img-100" src="{{ asset($student_detail->student_photo) }}"
+                            alt="">
                         <div class="white-box">
                             <div class="row">
                                 <div class="col-lg-5 col-md-6">
@@ -105,7 +106,7 @@
                                             </div>
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="name">
-                                                    {{$student_detail->full_name}}
+                                                    {{ $student_detail->full_name }}
                                                 </div>
                                             </div>
                                         </div>
@@ -119,7 +120,7 @@
                                             </div>
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="name">
-                                                    {{$student_detail->mobile}}
+                                                    {{ $student_detail->mobile }}
                                                 </div>
                                             </div>
                                         </div>
@@ -137,7 +138,7 @@
                                             </div>
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="name">
-                                                    {{$student_detail->admission_no}}
+                                                    {{ $student_detail->admission_no }}
                                                 </div>
                                             </div>
                                         </div>
@@ -151,7 +152,7 @@
                                             </div>
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="name">
-                                                    {{$student_detail->category !=""?$student_detail->category->category_name:""}}
+                                                    {{ $student_detail->category != '' ? $student_detail->category->category_name : '' }}
                                                 </div>
                                             </div>
                                         </div>
@@ -177,31 +178,44 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-    
+
                         <div>
                             {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'parent_attendance_search', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'search_student']) }}
                             <div class="row">
-                                <input type="hidden" name="url" id="url" value="{{URL::to('/')}}">
-                                <input type="hidden" name="student_id" id="student_id" value="{{$student_detail->id}}">
-    
-    
+                                <input type="hidden" name="url" id="url" value="{{ URL::to('/') }}">
+                                <input type="hidden" name="student_id" id="student_id" value="{{ $student_detail->id }}">
+
+
                                 <div class="col-lg-6 mt-30-md">
-                                    <select class="primary_select form-control{{ $errors->has('month') ? ' is-invalid' : '' }}"
-                                            name="month">
+                                    <select
+                                        class="primary_select form-control{{ $errors->has('month') ? ' is-invalid' : '' }}"
+                                        name="month">
                                         <option data-display="Select Month *" value="">@lang('student.select_month')*
                                         </option>
-                                        <option value="01" {{isset($month)? ($month == "01"? 'selected': ''): ''}}>@lang('student.january')</option>
-                                        <option value="02" {{isset($month)? ($month == "02"? 'selected': ''): ''}}>@lang('student.february')</option>
-                                        <option value="03" {{isset($month)? ($month == "03"? 'selected': ''): ''}}>@lang('student.march')</option>
-                                        <option value="04" {{isset($month)? ($month == "04"? 'selected': ''): ''}}>@lang('student.april')</option>
-                                        <option value="05" {{isset($month)? ($month == "05"? 'selected': ''): ''}}>@lang('student.may')</option>
-                                        <option value="06" {{isset($month)? ($month == "06"? 'selected': ''): ''}}>@lang('student.june')</option>
-                                        <option value="07" {{isset($month)? ($month == "07"? 'selected': ''): ''}}>@lang('student.july')</option>
-                                        <option value="08" {{isset($month)? ($month == "08"? 'selected': ''): ''}}>@lang('student.august')</option>
-                                        <option value="09" {{isset($month)? ($month == "09"? 'selected': ''): ''}}>@lang('student.september')</option>
-                                        <option value="10" {{isset($month)? ($month == "10"? 'selected': ''): ''}}>@lang('student.october')</option>
-                                        <option value="11" {{isset($month)? ($month == "11"? 'selected': ''): ''}}>@lang('student.november')</option>
-                                        <option value="12" {{isset($month)? ($month == "12"? 'selected': ''): ''}}>@lang('student.december')</option>
+                                        <option value="01" {{ isset($month) ? ($month == '01' ? 'selected' : '') : '' }}>
+                                            @lang('student.january')</option>
+                                        <option value="02" {{ isset($month) ? ($month == '02' ? 'selected' : '') : '' }}>
+                                            @lang('student.february')</option>
+                                        <option value="03" {{ isset($month) ? ($month == '03' ? 'selected' : '') : '' }}>
+                                            @lang('student.march')</option>
+                                        <option value="04" {{ isset($month) ? ($month == '04' ? 'selected' : '') : '' }}>
+                                            @lang('student.april')</option>
+                                        <option value="05" {{ isset($month) ? ($month == '05' ? 'selected' : '') : '' }}>
+                                            @lang('student.may')</option>
+                                        <option value="06" {{ isset($month) ? ($month == '06' ? 'selected' : '') : '' }}>
+                                            @lang('student.june')</option>
+                                        <option value="07" {{ isset($month) ? ($month == '07' ? 'selected' : '') : '' }}>
+                                            @lang('student.july')</option>
+                                        <option value="08" {{ isset($month) ? ($month == '08' ? 'selected' : '') : '' }}>
+                                            @lang('student.august')</option>
+                                        <option value="09" {{ isset($month) ? ($month == '09' ? 'selected' : '') : '' }}>
+                                            @lang('student.september')</option>
+                                        <option value="10" {{ isset($month) ? ($month == '10' ? 'selected' : '') : '' }}>
+                                            @lang('student.october')</option>
+                                        <option value="11" {{ isset($month) ? ($month == '11' ? 'selected' : '') : '' }}>
+                                            @lang('student.november')</option>
+                                        <option value="12" {{ isset($month) ? ($month == '12' ? 'selected' : '') : '' }}>
+                                            @lang('student.december')</option>
                                     </select>
                                     @if ($errors->has('month'))
                                         <span class="text-danger invalid-select" role="alert">
@@ -210,18 +224,18 @@
                                     @endif
                                 </div>
                                 <div class="col-lg-6">
-                                    <select class="primary_select form-control{{$errors->has('year') ? ' is-invalid' : ''}}"
-                                            name="year" id="year">
+                                    <select
+                                        class="primary_select form-control{{ $errors->has('year') ? ' is-invalid' : '' }}"
+                                        name="year" id="year">
                                         <option data-display="Select Year *" value="">@lang('student.select_year')*
                                         </option>
                                         @foreach (academicYears() as $academic_year)
-                                            <option value="{{$academic_year->year}}">{{$academic_year->year}}
-                                                [{{$academic_year->title}}]
+                                            <option value="{{ $academic_year->year }}">{{ $academic_year->year }}
+                                                [{{ $academic_year->title }}]
                                             </option>
-    
                                         @endforeach
-    
-    
+
+
                                     </select>
                                     @if ($errors->has('year'))
                                         <span class="text-danger invalid-select" role="alert">
@@ -251,11 +265,13 @@
                 <div class="row">
                     <div class="col-lg-12 student-details up_admin_visitor mt-0">
                         <ul class="nav nav-tabs tabs_scroll_nav mt-0" role="tablist">
-                            @foreach($records as $key => $record)
+                            @foreach ($records as $key => $record)
                                 <li class="nav-item">
-                                    <a class="nav-link @if($key== 0) active @endif " href="#tab{{$key}}" role="tab"
-                                       data-toggle="tab">{{$record->class->class_name}}
-                                        ({{$record->section->section_name}}) </a>
+                                    <a class="nav-link @if ($key == 0) active @endif "
+                                        href="#tab{{ $key }}" role="tab"
+                                        data-toggle="tab">{{ $record->class->class_name }}
+                                        ({{ $record->section->section_name }})
+                                    </a>
                                 </li>
                             @endforeach
                         </ul>
@@ -264,130 +280,146 @@
             </div>
             <!-- Tab panes -->
             <div class="tab-content mt-10">
-                @foreach($records as $key => $record)
-                    <div role="tabpanel" class="tab-pane fade  @if($key== 0) active show @endif"
-                         id="tab{{$key}}">
+                @foreach ($records as $key => $record)
+                    <div role="tabpanel" class="tab-pane fade  @if ($key == 0) active show @endif"
+                        id="tab{{ $key }}">
                         <div class="container-fluid p-0">
                             <div class="row">
 
-                                    <div class="col-lg-12 no-gutters d-flex flex-wrap align-items-center justify-content-between">
-                                        <div class="lateday d-flex flex-wrap">
-                                            <div class="mr-3">Present: <span class="text-success">P</span>
-                                            </div>
-                                            <div class="mr-3">Late: <span class="text-warning">L</span>
-                                            </div>
-                                            <div class="mr-3">Absent: <span class="text-danger">A</span>
-                                            </div>
-                                            <div class="mr-3">Half Day: <span class="text-info">F</span>
-                                            </div>
-                                            <div>Holiday: <span class="text-dark">H</span></div>
+                                <div class="col-lg-12 no-gutters d-flex flex-wrap align-items-center justify-content-between">
+                                    <div class="lateday d-flex flex-wrap">
+                                        <div class="mr-3">Presenta: <span class="text-success">P</span>
                                         </div>
-                                        <a href="{{route('my_child_attendance_print', [$record->student_id,$record->id,$month, $year])}}"
-                                           class="primary-btn small fix-gr-bg pull-right" target="_blank"><i
-                                                    class="ti-printer"> </i> @lang('common.print')</a>
-
+                                        <div class="mr-3">Late: <span class="text-warning">L</span>
+                                        </div>
+                                        <div class="mr-3">Absent: <span class="text-danger">A</span>
+                                        </div>
+                                        <div class="mr-3">Half Day: <span class="text-info">F</span>
+                                        </div>
+                                        <div>Holiday: <span class="text-dark">H</span></div>
                                     </div>
+                                    <a href="{{ route('my_child_attendance_print', [$record->student_id, $record->id, $month, $year]) }}"
+                                        class="primary-btn small fix-gr-bg pull-right" target="_blank"><i class="ti-printer">
+                                        </i> @lang('common.print')</a>
+
+                                </div>
                                 <div class="col-lg-12 mt-15">
                                     <div>
 
-                                        <table class="display school-table table-responsive"
-                                               cellspacing="0" width="100%">
+                                        <table class="display school-table table-responsive" cellspacing="0" width="100%">
                                             <thead>
-                                            <tr>
-                                                <th width="3%">P</th>
-                                                <th width="3%">L</th>
-                                                <th width="3%">A</th>
-                                                <th width="3%">H</th>
-                                                <th width="3%">F</th>
-                                                <th width="2%">%</th>
-                                                @for($i = 1;  $i<=@$days; $i++)
-                                                    <th width="3%" class="{{($i<=18)? 'all':'none'}}">
-                                                        {{$i}} <br>
-                                                        @php
-                                                            @$date = @$year.'-'.@$month.'-'.$i;
-                                                            @$day = date("D", strtotime(@$date));
-                                                            echo @$day;
-                                                        @endphp
-                                                    </th>
-                                                @endfor
-                                            </tr>
+                                                <tr>
+                                                    <th width="3%">P</th>
+                                                    <th width="3%">L</th>
+                                                    <th width="3%">A</th>
+                                                    <th width="3%">H</th>
+                                                    <th width="3%">F</th>
+                                                    <th width="2%">%</th>
+                                                    @for ($i = 1; $i <= @$days; $i++)
+                                                        <th width="3%" class="{{ $i <= 18 ? 'all' : 'none' }}">
+                                                            {{ $i }} <br>
+                                                            @php
+                                                                @$date = @$year . '-' . @$month . '-' . $i;
+                                                                @$day = date('D', strtotime(@$date));
+                                                                echo @$day;
+                                                            @endphp
+                                                        </th>
+                                                    @endfor
+                                                </tr>
                                             </thead>
 
                                             <tbody>
-                                            @php @$total_attendance = 0; @endphp
-                                            @php @$count_absent = 0; @endphp
-                                            <tr>
-                                                <td>
-                                                    @php $p = 0; @endphp
-                                                    @foreach($record->studentAttendance as $value)
-                                                        @if(@$value->attendance_type == 'P')
-                                                            @php $p++; @$total_attendance++; @endphp
-                                                        @endif
-                                                    @endforeach
-                                                    {{$p}}
-                                                </td>
-                                                <td>
-                                                    @php $l = 0; @endphp
-                                                    @foreach($record->studentAttendance as $value)
-                                                        @if(@$value->attendance_type == 'L')
-                                                            @php $l++; @$total_attendance++; @endphp
-                                                        @endif
-                                                    @endforeach
-                                                    {{$l}}
-                                                </td>
-                                                <td>
-                                                    @php $a = 0; @endphp
-                                                    @foreach($record->studentAttendance as $value)
-                                                        @if(@$value->attendance_type == 'A')
-                                                            @php $a++; @$count_absent++; @$total_attendance++; @endphp
-                                                        @endif
-                                                    @endforeach
-                                                    {{$a}}
-                                                </td>
-                                                <td>
-                                                    @php $h = 0; @endphp
-                                                    @foreach($record->studentAttendance as $value)
-                                                        @if(@$value->attendance_type == 'H')
-                                                            @php $h++; @$total_attendance++; @endphp
-                                                        @endif
-                                                    @endforeach
-                                                    {{$h}}
-                                                </td>
-                                                <td>
-                                                    @php $f = 0; @endphp
-                                                    @foreach($record->studentAttendance as $value)
-                                                        @if(@$value->attendance_type == 'F')
-                                                            @php $f++; @$total_attendance++; @endphp
-                                                        @endif
-                                                    @endforeach
-                                                    {{$f}}
-                                                </td>
-                                                <td>
-                                                    @php
-                                                        @$total_present = @$total_attendance - @$count_absent;
-                                                        if(@$count_absent == 0){
-                                                            echo '100%';
-                                                        }else{
-                                                            @$percentage = @$total_present / @$total_attendance * 100;
-                                                            echo number_format((float)@$percentage, 2, '.', '').'%';
-                                                        }
-                                                    @endphp
-
-                                                </td>
-                                                @for($i = 1;  $i<=@$days; $i++)
-                                                    @php
-                                                        @$date = @$year.'-'.@$month.'-'.$i;
-                                                    @endphp
-                                                    <td width="3%" class="{{($i<=18)? 'all':'none'}}">
-                                                        @foreach($record->studentAttendance as $value)
-                                                            @if(strtotime(@$value->attendance_date) == strtotime(@$date))
-                                                                {{@$value->attendance_type}}
+                                                @php @$total_attendance = 0; @endphp
+                                                @php @$count_absent = 0; @endphp
+                                                <tr>
+                                                    <td>
+                                                        @php $p = 0; @endphp
+                                                        @foreach ($record->studentAttendance as $value)
+                                                            @if (@$value->attendance_type == 'P')
+                                                                @php
+                                                                    $p++;
+                                                                    @$total_attendance++;
+                                                                @endphp
                                                             @endif
                                                         @endforeach
+                                                        {{ $p }}
                                                     </td>
+                                                    <td>
+                                                        @php $l = 0; @endphp
+                                                        @foreach ($record->studentAttendance as $value)
+                                                            @if (@$value->attendance_type == 'L')
+                                                                @php
+                                                                    $l++;
+                                                                    @$total_attendance++;
+                                                                @endphp
+                                                            @endif
+                                                        @endforeach
+                                                        {{ $l }}
+                                                    </td>
+                                                    <td>
+                                                        @php $a = 0; @endphp
+                                                        @foreach ($record->studentAttendance as $value)
+                                                            @if (@$value->attendance_type == 'A')
+                                                                @php
+                                                                    $a++;
+                                                                    @$count_absent++;
+                                                                    @$total_attendance++;
+                                                                @endphp
+                                                            @endif
+                                                        @endforeach
+                                                        {{ $a }}
+                                                    </td>
+                                                    <td>
+                                                        @php $h = 0; @endphp
+                                                        @foreach ($record->studentAttendance as $value)
+                                                            @if (@$value->attendance_type == 'H')
+                                                                @php
+                                                                    $h++;
+                                                                    @$total_attendance++;
+                                                                @endphp
+                                                            @endif
+                                                        @endforeach
+                                                        {{ $h }}
+                                                    </td>
+                                                    <td>
+                                                        @php $f = 0; @endphp
+                                                        @foreach ($record->studentAttendance as $value)
+                                                            @if (@$value->attendance_type == 'F')
+                                                                @php
+                                                                    $f++;
+                                                                    @$total_attendance++;
+                                                                @endphp
+                                                            @endif
+                                                        @endforeach
+                                                        {{ $f }}
+                                                    </td>
+                                                    <td>
+                                                        @php
+                                                            @$total_present = @$total_attendance - @$count_absent;
+                                                            if (@$count_absent == 0) {
+                                                                echo '100%';
+                                                            } else {
+                                                                @$percentage =
+                                                                    (@$total_present / @$total_attendance) * 100;
+                                                                echo number_format((float) @$percentage, 2, '.', '') .
+                                                                    '%';
+                                                            }
+                                                        @endphp
 
-                                                @endfor
-                                            </tr>
+                                                    </td>
+                                                    @for ($i = 1; $i <= @$days; $i++)
+                                                        @php
+                                                            @$date = @$year . '-' . @$month . '-' . $i;
+                                                        @endphp
+                                                        <td width="3%" class="{{ $i <= 18 ? 'all' : 'none' }}">
+                                                            @foreach ($record->studentAttendance as $value)
+                                                                @if (strtotime(@$value->attendance_date) == strtotime(@$date))
+                                                                    {{ @$value->attendance_type }}
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
+                                                    @endfor
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
