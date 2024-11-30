@@ -115,11 +115,11 @@
                 <th>SL</th>
                 <th width="12%">@lang('common.name')</th>
                 <th width="5%">@lang('student.admission_no')</th>
-                <th>Masuk</th>
-                <th>L</th>
-                <th>A</th>
-                <th>F</th>
-                <th>H</th>
+                <th>Hadir</th>
+                <th>Telat</th>
+                <th>Tidak Hadir</th>
+                <th>Set Hari</th>
+                <th>Libur</th>
                 <th width="5%">%</th>
                 @for ($i = 1; $i <= $days; $i++)
                     <th class="{{ $i <= 18 ? 'all' : 'none' }}">

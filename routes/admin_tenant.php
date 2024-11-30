@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\api\ApiSmStudentAttendanceController;
+use App\Http\Controllers\SmStudentAttendanceController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\TeacherEvaluationController;
@@ -1306,6 +1308,9 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function  (){
         Route::get('student-attendance-import', 'Admin\StudentInfo\SmStudentAttendanceController@studentAttendanceImport')->name('student-attendance-import');
         Route::get('download-student-attendance-file', 'Admin\StudentInfo\SmStudentAttendanceController@downloadStudentAtendanceFile');
         Route::post('student-attendance-bulk-store', 'Admin\StudentInfo\SmStudentAttendanceController@studentAttendanceBulkStore')->name('student-attendance-bulk-store');
+
+        Route::post('/process-rfid-attendance', 'SmStudentAttendanceController@processRfidAttendance')->name('rfid.process');
+        Route::post('/update-student-rfid', 'SmStudentAttendanceController@updateStudentRfid')->name('student.rfid.update');
 
         //Student Report
         Route::get('student-report', ['as' => 'student_report', 'uses' => 'Admin\StudentInfo\SmStudentReportController@studentReport'])->middleware('userRolePermission:student_report');

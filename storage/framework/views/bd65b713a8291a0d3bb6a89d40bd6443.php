@@ -54,22 +54,6 @@
                                         <a class="nav-link" href="#parents_and_guardian_info" role="tab"
                                             data-toggle="tab"><?php echo app('translator')->get('student.parents_and_guardian_info'); ?></a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#document_info" role="tab"
-                                            data-toggle="tab"><?php echo app('translator')->get('student.document_info'); ?></a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#previous_school_info" role="tab"
-                                            data-toggle="tab"><?php echo app('translator')->get('student.previous_school_info'); ?></a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#Other_info" role="tab"
-                                            data-toggle="tab"><?php echo app('translator')->get('student.Other_info'); ?></a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#custom_field" role="tab"
-                                            data-toggle="tab"><?php echo app('translator')->get('student.custom_field'); ?></a>
-                                    </li>
                                     <li class="nav-item flex-grow-1 text-right">
                                         
 
@@ -606,6 +590,30 @@
                                                                     </div>
                                                                 </div>
                                                             <?php endif; ?>
+                                                            <div class="col-lg-6 mt-4">
+                                                                <div class="primary_input">
+                                                                    <label class="primary_input_label" for="rfid_number">
+                                                                        RFID Number
+                                                                        <span class="text-danger">*</span>
+                                                                    </label>
+                                                                    <input
+                                                                            class="primary_input_field form-control<?php echo e($errors->has('rfid_number') ? ' is-invalid' : ''); ?>"
+                                                                            type="text"
+                                                                            name="rfid_number"
+                                                                            value="<?php echo e(old('rfid_number')); ?>"
+                                                                            maxlength="10"
+                                                                            pattern="\d{10}"
+                                                                            title="RFID Number harus 10 digit angka"
+                                                                    >
+
+                                                                    <?php if($errors->has('rfid_number')): ?>
+                                                                        <span class="text-danger">
+                <?php echo e($errors->first('rfid_number')); ?>
+
+            </span>
+                                                                    <?php endif; ?>
+                                                                </div>
+                                                            </div>
                                                             <?php if(is_show('photo')): ?>
                                                                 <div class="col-lg-6 mt-4">
                                                                     <div class="primary_input">
@@ -807,179 +815,6 @@
                                                                     </div>
                                                                 <?php endif; ?>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-section">
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="main-title">
-                                                                    <h4 class="stu-sub-head"><?php echo app('translator')->get('student.medical_record'); ?></h4>
-                                                                </div>
-                                                            </div>
-                                                            <?php if(is_show('blood_group')): ?>
-                                                                <div class="col-lg-6 mt-4">
-                                                                    <div class="primary_input ">
-                                                                        <label class="primary_input_label"
-                                                                            for=""><?php echo app('translator')->get('common.blood_group'); ?>
-                                                                            <?php if(is_required('blood_group') == true): ?>
-                                                                                <span class="text-danger"> *</span>
-                                                                            <?php endif; ?>
-                                                                        </label>
-                                                                        <select
-                                                                            class="primary_select form-control<?php echo e($errors->has('blood_group') ? ' is-invalid' : ''); ?>"
-                                                                            name="blood_group">
-                                                                            <option
-                                                                                data-display="<?php echo app('translator')->get('common.blood_group'); ?> <?php if(is_required('blood_group') == true): ?> * <?php endif; ?>"
-                                                                                value=""><?php echo app('translator')->get('common.blood_group'); ?>
-                                                                                <?php if(is_required('blood_group') == true): ?>
-                                                                                    <span class="text-danger"> *</span>
-                                                                                <?php endif; ?>
-                                                                            </option>
-                                                                            <?php $__currentLoopData = $blood_groups; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $blood_group): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                                                <option value="<?php echo e($blood_group->id); ?>"
-                                                                                    <?php echo e(old('blood_group') == $blood_group->id ? 'selected' : ''); ?>>
-                                                                                    <?php echo e($blood_group->base_setup_name); ?>
-
-                                                                                </option>
-                                                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                                        </select>
-
-                                                                        <?php if($errors->has('blood_group')): ?>
-                                                                            <span class="text-danger">
-                                                                                <?php echo e($errors->first('blood_group')); ?>
-
-                                                                            </span>
-                                                                        <?php endif; ?>
-                                                                    </div>
-                                                                </div>
-                                                            <?php endif; ?>
-                                                            <?php if(is_show('student_category_id')): ?>
-                                                                <div class="col-lg-6 mt-4">
-                                                                    <div class="primary_input ">
-                                                                        <div class="primary_input ">
-                                                                            <label class="primary_input_label"
-                                                                                for=""><?php echo app('translator')->get('student.category'); ?>
-                                                                                <?php if(is_required('student_category_id') == true): ?>
-                                                                                    <span class="text-danger"> *</span>
-                                                                                <?php endif; ?>
-                                                                            </label>
-                                                                            <select
-                                                                                class="primary_select form-control<?php echo e($errors->has('student_category_id') ? ' is-invalid' : ''); ?>"
-                                                                                name="student_category_id">
-                                                                                <option
-                                                                                    data-display="<?php echo app('translator')->get('student.category'); ?>  <?php if(is_required('student_category_id') == true): ?> * <?php endif; ?>"
-                                                                                    value=""><?php echo app('translator')->get('student.student_category_id'); ?>
-                                                                                    <?php if(is_required('category') == true): ?>
-                                                                                        <span class="text-danger"> *</span>
-                                                                                    <?php endif; ?>
-                                                                                </option>
-                                                                                <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                                                    <option value="<?php echo e($category->id); ?>"
-                                                                                        <?php echo e(old('student_category_id') == $category->id ? 'selected' : ''); ?>>
-                                                                                        <?php echo e($category->category_name); ?>
-
-                                                                                    </option>
-                                                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-                                                                            </select>
-
-                                                                            <?php if($errors->has('student_category_id')): ?>
-                                                                                <span class="text-danger">
-                                                                                    <?php echo e($errors->first('student_category_id')); ?>
-
-                                                                                </span>
-                                                                            <?php endif; ?>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            <?php endif; ?>
-                                                            <?php if(is_show('height')): ?>
-                                                                <div class="col-lg-6 mt-4">
-                                                                    <div class="primary_input ">
-                                                                        <label class="primary_input_label"
-                                                                            for=""><?php echo app('translator')->get('student.height_in'); ?>
-                                                                            <?php if(is_required('height') == true): ?>
-                                                                                <span class="text-danger"> *</span>
-                                                                            <?php endif; ?>
-                                                                        </label>
-                                                                        <input
-                                                                            class="primary_input_field form-control<?php echo e($errors->has('height') ? ' is-invalid' : ''); ?>"
-                                                                            type="text" name="height"
-                                                                            value="<?php echo e(old('height')); ?>">
-
-
-                                                                        <?php if($errors->has('height')): ?>
-                                                                            <span class="text-danger">
-                                                                                <?php echo e($errors->first('height')); ?>
-
-                                                                            </span>
-                                                                        <?php endif; ?>
-                                                                    </div>
-                                                                </div>
-                                                            <?php endif; ?>
-                                                            <?php if(is_show('weight')): ?>
-                                                                <div class="col-lg-6 mt-4">
-                                                                    <div class="primary_input ">
-                                                                        <label class="primary_input_label"
-                                                                            for=""><?php echo app('translator')->get('student.weight_kg'); ?>
-                                                                            <?php if(is_required('weight') == true): ?>
-                                                                                <span class="text-danger"> *</span>
-                                                                            <?php endif; ?>
-                                                                        </label>
-                                                                        <input
-                                                                            class="primary_input_field form-control<?php echo e($errors->has('weight') ? ' is-invalid' : ''); ?>"
-                                                                            type="text" name="weight"
-                                                                            value="<?php echo e(old('weight')); ?>">
-
-
-                                                                        <?php if($errors->has('weight')): ?>
-                                                                            <span class="text-danger">
-                                                                                <?php echo e($errors->first('weight')); ?>
-
-                                                                            </span>
-                                                                        <?php endif; ?>
-                                                                    </div>
-                                                                </div>
-                                                            <?php endif; ?>
-                                                            <?php if(moduleStatusCheck('Lead') == true): ?>
-                                                                <div class="row mb-15">
-                                                                    <?php if(is_show('source_id')): ?>
-                                                                        <div class="col-lg-6 mt-4">
-                                                                            <div class="primary_input">
-                                                                                <select
-                                                                                    class="primary_select form-control<?php echo e($errors->has('route') ? ' is-invalid' : ''); ?>"
-                                                                                    name="source_id" id="source_id">
-                                                                                    <option
-                                                                                        data-display="<?php echo app('translator')->get('lead::lead.source'); ?> <?php if(is_required('source_id') == true): ?> * <?php endif; ?>"
-                                                                                        value=""><?php echo app('translator')->get('lead::lead.source'); ?>
-                                                                                        <?php if(is_required('source_id') == true): ?>
-                                                                                            <span class="text-danger">
-                                                                                                *</span>
-                                                                                        <?php endif; ?>
-                                                                                    </option>
-                                                                                    <?php $__currentLoopData = $sources; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $source): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                                                        <option
-                                                                                            value="<?php echo e($source->id); ?>"
-                                                                                            <?php echo e(old('source_id') == $source->id ? 'selected' : ''); ?>>
-                                                                                            <?php echo e($source->source_name); ?>
-
-                                                                                        </option>
-                                                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                                                </select>
-
-                                                                                <?php if($errors->has('source_id')): ?>
-                                                                                    <span class="text-danger">
-                                                                                        <?php echo e($errors->first('source_id')); ?>
-
-                                                                                    </span>
-                                                                                <?php endif; ?>
-                                                                            </div>
-                                                                        </div>
-                                                                    <?php endif; ?>
-                                                                </div>
-                                                            <?php endif; ?>
                                                         </div>
                                                     </div>
                                                 </div>

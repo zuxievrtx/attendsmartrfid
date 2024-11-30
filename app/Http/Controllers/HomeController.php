@@ -510,6 +510,11 @@ class HomeController extends Controller
     }
 
 
+    public function rfidPage()
+    {
+        return view('backEnd.rfid_attendance');
+    }
+
     public function updatePassowrd()
     {
         return view('backEnd.update_password');
@@ -560,3 +565,4 @@ class HomeController extends Controller
         return view('backEnd.userCustomMenu.index', compact('menu_item'));
     }
 }
+

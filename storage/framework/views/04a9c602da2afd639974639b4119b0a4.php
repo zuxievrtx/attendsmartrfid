@@ -104,7 +104,9 @@
                             class="text-white"><?php echo e(__('academics.section')); ?>: <?php echo e($section->section_name); ?> </p>
                     <?php endif; ?>
                     <p style="font-size:14px !important; border-bottom:1px solid gray" align="left"
-                        class="text-white"><?php echo e(__('hr.month')); ?>: <?php echo e(date('F', strtotime('00-' . $month . '-01'))); ?> </p>
+                        class="text-white"><?php echo e(__('hr.month')); ?>: <?php echo e(date('F', strtotime('00-' . $month . '-01'))); ?>
+
+                    </p>
                     <p style="font-size:14px !important; border-bottom:1px solid gray" align="left"
                         class="text-white"><?php echo e(__('common.year')); ?>: <?php echo e($year); ?> </p>
 
@@ -117,11 +119,11 @@
                 <th>SL</th>
                 <th width="12%"><?php echo app('translator')->get('common.name'); ?></th>
                 <th width="5%"><?php echo app('translator')->get('student.admission_no'); ?></th>
-                <th>Datang</th>
-                <th>L</th>
-                <th>A</th>
-                <th>F</th>
-                <th>H</th>
+                <th>Hadir</th>
+                <th>Telat</th>
+                <th>Tidak Hadir</th>
+                <th>Set Hari</th>
+                <th>Libur</th>
                 <th width="5%">%</th>
                 <?php for($i = 1; $i <= $days; $i++): ?>
                     <th class="<?php echo e($i <= 18 ? 'all' : 'none'); ?>">

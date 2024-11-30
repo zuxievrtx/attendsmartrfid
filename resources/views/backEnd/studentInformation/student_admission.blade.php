@@ -54,22 +54,6 @@
                                         <a class="nav-link" href="#parents_and_guardian_info" role="tab"
                                             data-toggle="tab">@lang('student.parents_and_guardian_info')</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#document_info" role="tab"
-                                            data-toggle="tab">@lang('student.document_info')</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#previous_school_info" role="tab"
-                                            data-toggle="tab">@lang('student.previous_school_info')</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#Other_info" role="tab"
-                                            data-toggle="tab">@lang('student.Other_info')</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#custom_field" role="tab"
-                                            data-toggle="tab">@lang('student.custom_field')</a>
-                                    </li>
                                     <li class="nav-item flex-grow-1 text-right">
                                         {{-- <div class="row">
                                 <div class="col-lg-12 text-center"> --}}
@@ -591,6 +575,29 @@
                                                                     </div>
                                                                 </div>
                                                             @endif
+                                                            <div class="col-lg-6 mt-4">
+                                                                <div class="primary_input">
+                                                                    <label class="primary_input_label" for="rfid_number">
+                                                                        RFID Number
+                                                                        <span class="text-danger">*</span>
+                                                                    </label>
+                                                                    <input
+                                                                            class="primary_input_field form-control{{ $errors->has('rfid_number') ? ' is-invalid' : '' }}"
+                                                                            type="text"
+                                                                            name="rfid_number"
+                                                                            value="{{ old('rfid_number') }}"
+                                                                            maxlength="10"
+                                                                            pattern="\d{10}"
+                                                                            title="RFID Number harus 10 digit angka"
+                                                                    >
+
+                                                                    @if ($errors->has('rfid_number'))
+                                                                        <span class="text-danger">
+                {{ $errors->first('rfid_number') }}
+            </span>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
                                                             @if (is_show('photo'))
                                                                 <div class="col-lg-6 mt-4">
                                                                     <div class="primary_input">
@@ -785,171 +792,6 @@
                                                                     </div>
                                                                 @endif
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-section">
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="main-title">
-                                                                    <h4 class="stu-sub-head">@lang('student.medical_record')</h4>
-                                                                </div>
-                                                            </div>
-                                                            @if (is_show('blood_group'))
-                                                                <div class="col-lg-6 mt-4">
-                                                                    <div class="primary_input ">
-                                                                        <label class="primary_input_label"
-                                                                            for="">@lang('common.blood_group')
-                                                                            @if (is_required('blood_group') == true)
-                                                                                <span class="text-danger"> *</span>
-                                                                            @endif
-                                                                        </label>
-                                                                        <select
-                                                                            class="primary_select form-control{{ $errors->has('blood_group') ? ' is-invalid' : '' }}"
-                                                                            name="blood_group">
-                                                                            <option
-                                                                                data-display="@lang('common.blood_group') @if (is_required('blood_group') == true) * @endif"
-                                                                                value="">@lang('common.blood_group')
-                                                                                @if (is_required('blood_group') == true)
-                                                                                    <span class="text-danger"> *</span>
-                                                                                @endif
-                                                                            </option>
-                                                                            @foreach ($blood_groups as $blood_group)
-                                                                                <option value="{{ $blood_group->id }}"
-                                                                                    {{ old('blood_group') == $blood_group->id ? 'selected' : '' }}>
-                                                                                    {{ $blood_group->base_setup_name }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </select>
-
-                                                                        @if ($errors->has('blood_group'))
-                                                                            <span class="text-danger">
-                                                                                {{ $errors->first('blood_group') }}
-                                                                            </span>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                            @endif
-                                                            @if (is_show('student_category_id'))
-                                                                <div class="col-lg-6 mt-4">
-                                                                    <div class="primary_input ">
-                                                                        <div class="primary_input ">
-                                                                            <label class="primary_input_label"
-                                                                                for="">@lang('student.category')
-                                                                                @if (is_required('student_category_id') == true)
-                                                                                    <span class="text-danger"> *</span>
-                                                                                @endif
-                                                                            </label>
-                                                                            <select
-                                                                                class="primary_select form-control{{ $errors->has('student_category_id') ? ' is-invalid' : '' }}"
-                                                                                name="student_category_id">
-                                                                                <option
-                                                                                    data-display="@lang('student.category')  @if (is_required('student_category_id') == true) * @endif"
-                                                                                    value="">@lang('student.student_category_id')
-                                                                                    @if (is_required('category') == true)
-                                                                                        <span class="text-danger"> *</span>
-                                                                                    @endif
-                                                                                </option>
-                                                                                @foreach ($categories as $category)
-                                                                                    <option value="{{ $category->id }}"
-                                                                                        {{ old('student_category_id') == $category->id ? 'selected' : '' }}>
-                                                                                        {{ $category->category_name }}
-                                                                                    </option>
-                                                                                @endforeach
-
-                                                                            </select>
-
-                                                                            @if ($errors->has('student_category_id'))
-                                                                                <span class="text-danger">
-                                                                                    {{ $errors->first('student_category_id') }}
-                                                                                </span>
-                                                                            @endif
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            @endif
-                                                            @if (is_show('height'))
-                                                                <div class="col-lg-6 mt-4">
-                                                                    <div class="primary_input ">
-                                                                        <label class="primary_input_label"
-                                                                            for="">@lang('student.height_in')
-                                                                            @if (is_required('height') == true)
-                                                                                <span class="text-danger"> *</span>
-                                                                            @endif
-                                                                        </label>
-                                                                        <input
-                                                                            class="primary_input_field form-control{{ $errors->has('height') ? ' is-invalid' : '' }}"
-                                                                            type="text" name="height"
-                                                                            value="{{ old('height') }}">
-
-
-                                                                        @if ($errors->has('height'))
-                                                                            <span class="text-danger">
-                                                                                {{ $errors->first('height') }}
-                                                                            </span>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                            @endif
-                                                            @if (is_show('weight'))
-                                                                <div class="col-lg-6 mt-4">
-                                                                    <div class="primary_input ">
-                                                                        <label class="primary_input_label"
-                                                                            for="">@lang('student.weight_kg')
-                                                                            @if (is_required('weight') == true)
-                                                                                <span class="text-danger"> *</span>
-                                                                            @endif
-                                                                        </label>
-                                                                        <input
-                                                                            class="primary_input_field form-control{{ $errors->has('weight') ? ' is-invalid' : '' }}"
-                                                                            type="text" name="weight"
-                                                                            value="{{ old('weight') }}">
-
-
-                                                                        @if ($errors->has('weight'))
-                                                                            <span class="text-danger">
-                                                                                {{ $errors->first('weight') }}
-                                                                            </span>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                            @endif
-                                                            @if (moduleStatusCheck('Lead') == true)
-                                                                <div class="row mb-15">
-                                                                    @if (is_show('source_id'))
-                                                                        <div class="col-lg-6 mt-4">
-                                                                            <div class="primary_input">
-                                                                                <select
-                                                                                    class="primary_select form-control{{ $errors->has('route') ? ' is-invalid' : '' }}"
-                                                                                    name="source_id" id="source_id">
-                                                                                    <option
-                                                                                        data-display="@lang('lead::lead.source') @if (is_required('source_id') == true) * @endif"
-                                                                                        value="">@lang('lead::lead.source')
-                                                                                        @if (is_required('source_id') == true)
-                                                                                            <span class="text-danger">
-                                                                                                *</span>
-                                                                                        @endif
-                                                                                    </option>
-                                                                                    @foreach ($sources as $source)
-                                                                                        <option
-                                                                                            value="{{ $source->id }}"
-                                                                                            {{ old('source_id') == $source->id ? 'selected' : '' }}>
-                                                                                            {{ $source->source_name }}
-                                                                                        </option>
-                                                                                    @endforeach
-                                                                                </select>
-
-                                                                                @if ($errors->has('source_id'))
-                                                                                    <span class="text-danger">
-                                                                                        {{ $errors->first('source_id') }}
-                                                                                    </span>
-                                                                                @endif
-                                                                            </div>
-                                                                        </div>
-                                                                    @endif
-                                                                </div>
-                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>

@@ -699,6 +699,7 @@ class SmStudentAdmissionController extends Controller
                         $student->gender_id = $request->gender;
                         $student->date_of_birth = date('Y-m-d', strtotime($request->date_of_birth));
                         $student->caste = $request->caste;
+                        $student->rfid_number = $request->rfid_number;
                         $student->email = $request->email_address;
                         $student->mobile = $request->phone_number;
                         $student->admission_date = date('Y-m-d', strtotime($request->admission_date));
@@ -2736,7 +2737,6 @@ class SmStudentAdmissionController extends Controller
             return redirect()->back();
         }
     }
-
 
 
     public function unassignedStudent(Request $request)

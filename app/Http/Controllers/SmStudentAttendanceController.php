@@ -395,4 +395,169 @@ class SmStudentAttendanceController extends Controller
             }
         }
     }
+
+    public function processRfidAttendance(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'rfid_number' => 'required|string|size:10',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Invalid RFID number format'
+                ]);
+            }
+
+            // Find student with RFID number
+            $student = SmStudent::where('rfid_number', $request->rfid_number)
+                ->where('active_status', 1)
+                ->first();
+
+            if (!$student) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No student found with this RFID number'
+                ]);
+            }
+
+            $attendance_date = date('Y-m-d');
+
+            // Get student record data
+            $studentRecord = DB::table('student_records')
+                ->where('student_id', $student->id)
+                ->where('school_id', Auth::user()->school_id)
+                ->where('academic_id', getAcademicId())
+                ->first();
+
+            if (!$studentRecord) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Student record not found'
+                ]);
+            }
+
+            // Check for existing attendance
+            $existingAttendance = SmStudentAttendance::where('student_id', $student->id)
+                ->where('attendance_date', $attendance_date)
+                ->first();
+
+            if ($existingAttendance) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Attendance already recorded for today'
+                ]);
+            }
+
+            // Get current time and determine attendance type
+            $current_time = date('H:i');
+            $attendance_type = (strtotime($current_time) > strtotime('08:15')) ? 'L' : 'P';
+
+            // Get the latest class and section information from student record
+            $latestClassSection = DB::table('student_records')
+                ->join('sm_classes', 'student_records.class_id', '=', 'sm_classes.id')
+                ->join('sm_sections', 'student_records.section_id', '=', 'sm_sections.id')
+                ->where('student_records.student_id', $student->id)
+                ->where('student_records.academic_id', getAcademicId())
+                ->where('student_records.school_id', Auth::user()->school_id)
+                ->select('student_records.class_id', 'student_records.section_id')
+                ->first();
+
+            if (!$latestClassSection) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Student class and section information not found'
+                ]);
+            }
+
+            DB::beginTransaction();
+            try {
+                // Record attendance with all required fields
+                $attendance = new SmStudentAttendance();
+                $attendance->student_id = $student->id;
+                $attendance->student_record_id = $studentRecord->id;
+                $attendance->class_id = $latestClassSection->class_id;
+                $attendance->section_id = $latestClassSection->section_id;
+                $attendance->attendance_type = $attendance_type;
+                $attendance->attendance_date = $attendance_date;
+                $attendance->notes = "RFID Attendance at " . $current_time;
+                $attendance->school_id = Auth::user()->school_id;
+                $attendance->academic_id = getAcademicId();
+                $attendance->save();
+
+                DB::commit();
+
+                // Get class and section names for response
+                $class = SmClass::find($latestClassSection->class_id);
+                $section = SmSection::find($latestClassSection->section_id);
+
+                \Log::info('Attendance recorded successfully', [
+                    'student_id' => $student->id,
+                    'class_id' => $attendance->class_id,
+                    'section_id' => $attendance->section_id,
+                    'student_record_id' => $attendance->student_record_id
+                ]);
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Attendance recorded successfully',
+                    'data' => [
+                        'student_name' => $student->full_name,
+                        'attendance_date' => $attendance_date,
+                        'attendance_time' => $current_time,
+                        'class_name' => $class ? $class->class_name : '',
+                        'section_name' => $section ? $section->section_name : '',
+                        'attendance_type' => $attendance_type,
+                        'debug' => [
+                            'student_record_id' => $attendance->student_record_id,
+                            'class_id' => $attendance->class_id,
+                            'section_id' => $attendance->section_id
+                        ]
+                    ]
+                ]);
+
+            } catch (\Exception $e) {
+                DB::rollback();
+                \Log::error('RFID Attendance Error: ' . $e->getMessage());
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Error recording attendance: ' . $e->getMessage()
+                ]);
+            }
+
+        } catch (\Exception $e) {
+            \Log::error('RFID Attendance Error: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Error recording attendance: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+    public function updateStudentRfid(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'student_id' => 'required|exists:sm_students,id',
+                'rfid_number' => 'required|string|size:10|unique:sm_students,rfid_number,'.$request->student_id,
+            ]);
+
+            if ($validator->fails()) {
+                Toastr::error('Validation failed', 'Error');
+                return redirect()->back();
+            }
+
+            $student = SmStudent::find($request->student_id);
+            $student->rfid_number = $request->rfid_number;
+            $student->save();
+
+            Toastr::success('RFID number updated successfully', 'Success');
+            return redirect()->back();
+
+        } catch (\Exception $e) {
+            Toastr::error('Operation Failed', 'Failed');
+            return redirect()->back();
+        }
+    }
 }

@@ -52,6 +52,7 @@ Route::group(['middleware' => []], function () {
 
 
     Route::get('change-password', 'HomeController@updatePassowrd')->name('updatePassowrd');
+    Route::get('rfid-page', 'HomeController@rfidPage')->name('rfidPage');
     Route::get('/academic_years', 'HomeController@academicUpdate');
     Route::get('/class_updates', 'HomeController@classUpdate');
     Route::get('/section_updates', 'HomeController@sectionUpdate');

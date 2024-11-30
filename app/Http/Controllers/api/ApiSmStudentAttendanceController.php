@@ -1599,7 +1599,5 @@ class ApiSmStudentAttendanceController extends Controller
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Server Error.', $e->getMessage());
         }
-
-
     }
 }

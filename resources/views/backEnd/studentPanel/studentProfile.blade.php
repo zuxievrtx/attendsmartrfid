@@ -231,40 +231,6 @@
                         }
                     }
                 @endphp
-                <div class="col-lg-3 col-md-6">
-                    <a href="{{ route(generalSetting()->fees_status == 0 ? 'student_fees' : 'fees.student-fees-list') }}" class="d-block">
-                        <div class="white-box single-summery fuchsia">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <h3>@lang('student.fees')</h3>
-                                    <p class="mb-0">@lang('student.total_due_fees')</p>
-                                </div>
-                                <h1 class="gradient-color2">
-                                    @if(!moduleStatusCheck('University'))
-                                        @if (generalSetting()->fees_status == 0)
-                                            @if (directFees())
-                                                {{ $currency }}{{ $balance_fees }}
-                                            @else
-                                                {{ $currency }}{{ $old_fees }}
-                                            @endif
-                                        @elseif (isset($feesDue))
-                                            {{ $currency }}{{ $feesDue }}
-                                        @endif
-                                    @else
-                                        @if (generalSetting()->fees_status == 1)
-                                            {{ $currency }}{{ $feesDue }}
-
-                                        @else 
-                                            @if (isset($due_amount))
-                                                {{ $currency }}{{ $due_amount }}
-                                            @endif
-                                        @endif
-                                    @endif
-                                </h1>
-                            </div>
-                        </div>
-                    </a>
-                </div>
                 @if (moduleStatusCheck('BehaviourRecords'))
                     <div class="col-lg-3 col-md-6">
                         <a href="{{ route('student-profile') }}" class="d-block">
